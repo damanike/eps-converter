@@ -7,6 +7,11 @@ const fs = require("fs");
 const app = express();
 const upload = multer({ dest: "uploads/" });
 
+// 🔁 Health check route for Bolt.new / Render
+app.get("/", (req, res) => {
+  res.send("✅ EPS Converter API is running.");
+});
+
 app.post("/convert-eps", upload.single("file"), (req, res) => {
   const inputPath = req.file.path;
   const outputFilename = path.basename(inputPath) + ".jpg";
@@ -28,6 +33,7 @@ app.post("/convert-eps", upload.single("file"), (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("EPS Converter running on port 3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`EPS Converter running on port ${PORT}`);
 });
