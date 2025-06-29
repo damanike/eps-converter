@@ -3,11 +3,14 @@ const multer = require("multer");
 const { exec } = require("child_process");
 const path = require("path");
 const fs = require("fs");
+const cors = require("cors");
 
 const app = express();
 const upload = multer({ dest: "uploads/" });
 
-// 🔁 Health check route for Bolt.new / Render
+app.use(cors()); // Enable CORS for all routes
+
+// Health check route
 app.get("/", (req, res) => {
   res.send("✅ EPS Converter API is running.");
 });
